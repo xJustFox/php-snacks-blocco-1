@@ -1,8 +1,24 @@
 <?php 
+    $access = 'Inserisci i tuoi dati';
+
     if (isset($_GET['name']) && isset($_GET['email']) && isset($_GET['age'])) {
         $name = $_GET['name'];
         $email = $_GET['email'];
         $age = $_GET['age'];
+        
+        if (strlen($name) < 3) {
+            $access = 'Accesso negato';
+        } 
+        elseif (!str_contains($email, '.') && !str_contains($email, '@')) {
+            $access = 'Accesso negato';
+        }
+        elseif (!is_numeric($age)) {
+            $access = 'Accesso negato';
+        }
+        else {
+            $access = 'Accesso riuscito';
+        }
+        
 
 
     }
@@ -18,15 +34,16 @@
 <body>
     <form action="./snack_2.php" method="get">
         <label for="name_input">Name:</label>
-        <input type="text" name="name" id="name_input" required>
+        <input type="text" name="name" id="name_input">
 
         <label for="email_input">Email:</label>
-        <input type="email" name="email" id="email_input" required>
+        <input type="text" name="email" id="email_input">
 
         <label for="age_input">Age:</label>
-        <input style="width: 40px;" type="text" name="age" id="age_input" maxlength="3" required>
+        <input style="width: 40px;" type="text" name="age" id="age_input" maxlength="3">
 
         <button type="submit">Send</button>
     </form>
+    <h1><?php echo $access ?></h1>
 </body>
 </html>
